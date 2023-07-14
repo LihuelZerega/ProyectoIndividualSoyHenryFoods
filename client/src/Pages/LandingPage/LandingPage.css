@@ -1,0 +1,102 @@
+.LandingPage {
+  background-image: url("../../Images/LandingPageBackground.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.LandingPageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.50);
+  backdrop-filter: blur(5px);
+}
+
+.LandingPageTitle1 {
+  color: rgba(255, 255, 255, 1);
+  font-size: 48px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  margin-bottom: 1rem;
+}
+
+.LandingPageTitle2 {
+  color: #FFF;
+  font-size: 128px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  position: relative;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.8em 1em;
+  display: inline-block;
+  border-radius: 1em;
+  transition: all .2s;
+  border: none;
+  font-family: Poppins;
+  font-weight: 600;
+  color: black;
+  background-color: white;
+  margin-top: 2rem;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s;
+}
+
+.btn::after {
+  background-color: #fff;
+}
+
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .LandingPageTitle1 {
+    font-size: 32px;
+  }
+  
+  .LandingPageTitle2 {
+    font-size: 96px;
+  }
+  
+  .btn {
+    font-size: 14px;
+    padding: 0.6em 0.8em;
+    margin-top: 1.5rem;
+  }
+}

@@ -1,0 +1,128 @@
+.background_home {
+  background-color: #E8E8E8;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.NavBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background: #1E1E1E;
+  padding: 10px;
+}
+
+.FunctionButtons {
+  display: flex;
+  align-items: center;
+}
+
+.BackArrowButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.BackArrowIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 4px;
+  transition: transform 0.3s;
+}
+
+.BackArrowIcon:hover {
+  transform: scale(1.1);
+}
+
+.RefreshButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.RefreshIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 4px;
+  transition: transform 0.3s;
+}
+
+.RefreshIcon:hover {
+  transform: rotate(360deg);
+}
+
+.Filter {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  flex-wrap: wrap;
+}
+
+.OptionFilters {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-family: Poppins;
+  margin-right: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.OptionFilters:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  cursor: pointer;
+}
+
+.CreateRecipeButton {
+  background: transparent;
+  border: none;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-family: Poppins;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.CreateRecipeButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .NavBar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .FunctionButtons {
+    margin-bottom: 1rem;
+  }
+
+  .OptionFilters,
+  .CreateRecipeButton {
+    margin-top: 1rem;
+    margin-right: 0;
+  }
+
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}

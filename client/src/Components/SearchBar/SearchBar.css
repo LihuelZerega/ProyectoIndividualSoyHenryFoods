@@ -1,0 +1,43 @@
+.SearchBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SearchBarContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.SearchBarInput {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  color: white;
+  font-family: Poppins;
+}
+
+.SearchBarButton {
+  background-color: #333;
+  border: none;
+  padding: 8px 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: Poppins;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.SearchBarButton:hover {
+  background-color: #555;
+}
+
+.SearchBarButtonIcon {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}

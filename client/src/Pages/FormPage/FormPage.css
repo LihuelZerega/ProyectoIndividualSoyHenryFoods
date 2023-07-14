@@ -1,0 +1,307 @@
+.FormPageContainer {
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Back {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #1e1e1e;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.BackArrowButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.BackArrowIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 4px;
+  transition: transform 0.3s;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 800px;
+  padding: 40px;
+  box-shadow: #1e1e1e49 0px 0px 5px;
+}
+
+.TitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.Title {
+  font-size: 24px;
+  font-family: Poppins;
+  color: #333;
+}
+
+.InputsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.InputsTextContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.InputName,
+.InputHealthScore,
+.InputSummary {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.InputNameTitle,
+.InputHealthScoreTitle,
+.InputSummaryTitle,
+.stepbystepTitle {
+  font-weight: bold;
+  color: #333;
+}
+
+.inputdata {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.error-input {
+  border-color: red;
+}
+
+.error {
+  color: red;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.stepbystep {
+  margin-bottom: 10px;
+}
+
+.stepbystep textarea {
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.stepbystep textarea:focus {
+  border-color: #888;
+}
+
+.renderstepbystep ol {
+  padding-left: 20px;
+}
+
+.renderstepbystep li {
+  margin-bottom: 8px;
+}
+
+.orgcontcheck {
+  margin-bottom: 10px;
+}
+
+.organizadorcheck {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #555;
+}
+
+.orgcontcheckTitle {
+  font-family: Poppins;
+  font-weight: bold;
+}
+
+.organizadorcheck p {
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.stepbystepTitle {
+  margin-top: 8px;
+}
+
+.stepbystep-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.stepbystep-buttons button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: #1e1e1e;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+.stepbystep-buttons button:last-child {
+  margin-right: 0;
+}
+
+.stepbystep-buttons button:hover {
+  background-color: #333;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.checklist-item input {
+  margin-right: 8px;
+}
+
+.checklist-item-label {
+  font-weight: bold;
+}
+
+.ButtonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons {
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #1e1e1e;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttons:hover {
+  background-color: #333;
+}
+
+.RightInputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .InputsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .InputsTextContainer {
+    width: 100%;
+  }
+
+  .InputName,
+  .InputHealthScore,
+  .InputSummary {
+    width: 100%;
+  }
+
+  .RightInputs {
+    align-items: flex-start;
+  }
+}
+
+.ImagePreview {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+/* IMAGE INPUT */
+
+.custum-file-upload {
+  height: 200px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #cacaca;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px rgba(0, 0, 0, 0.1);
+}
+
+.custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 80px;
+  fill: rgba(75, 85, 99, 1);
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 400;
+  color: rgba(75, 85, 99, 1);
+}
+
+.custum-file-upload input {
+  display: none;
+}
+
+.ImagePreview {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 10px;
+  margin-top: 10px;
+}

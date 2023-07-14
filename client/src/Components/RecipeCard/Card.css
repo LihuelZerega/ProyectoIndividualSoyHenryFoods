@@ -1,0 +1,67 @@
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    overflow: hidden;
+    width: 300px;
+    height: 450px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-image {
+    height: 60%;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card-content {
+    padding: 16px;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Poppins;
+    margin: 0;
+    padding-bottom: 8px;
+    color: #333;
+  }
+  
+  .details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .diet,
+  .health {
+    font-family: Poppins;
+    font-size: 14px;
+    margin: 0;
+    color: #666;
+  }
+  
+  .health {
+    color: #666;
+  }
+  
+  .HeartIcon, .DietIcon {
+    width: 12px;
+    height: 12px;
+  }

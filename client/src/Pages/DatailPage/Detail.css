@@ -1,0 +1,115 @@
+.DetailPageContainer {
+  background-color: #E8E8E8;
+  padding-bottom: 20px;
+}
+
+.Back {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1E1E1E;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.BackArrowButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.BackArrowIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 4px;
+  transition: transform 0.3s;
+}
+
+.DetailCard {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  background-color: white;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 20px;
+  gap: 20px;
+}
+
+.DetailCardImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.DetailCardImageContent {
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.DetailCardContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.DetailCardTitle {
+  font-size: 24px;
+  font-weight: bold;
+
+}
+
+.DetailCardHealthScoreContent,
+.DetailCardDietsContent {
+  display: flex;
+  align-items: center;
+}
+
+.HealthScoreTitle,
+.DietTitle {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.HealthScoreParagraph,
+.DietParagraph {
+  margin: 0;
+  font-size: 20px;
+}
+
+.DetailCardSummary,
+.DetailCardSteps {
+  background-color: white;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 20px;
+}
+
+.DetailCardSteps ol {
+  padding-left: 20px;
+}
+
+.DetailCardSteps li {
+  margin-bottom: 8px;
+}
+
+@media only screen and (max-width: 768px) {
+  .DetailPageContainer {
+    padding: 10px;
+  }
+
+  .DetailCard {
+    grid-template-columns: 1fr;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .DetailCardImageContent {
+    max-height: 300px;
+  }
+}
