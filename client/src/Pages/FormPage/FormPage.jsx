@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postRecipe, getDiets } from "../../Redux/actions";
+import { postRecipe, getDiets } from "../../Redux/actions.js";
 import { useDispatch, useSelector } from "react-redux";
 import BackArrowIcon from "../../Images/flecha-pequena-izquierda.png";
 import "./FormPage.css";
@@ -30,33 +30,40 @@ const CreateRecipe = () => {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         setSelectedImage(URL.createObjectURL(file));
+        setInput({
+            ...input,
+            image: file,
+        });
     };
+
 
     const handleInputChange = (e) => {
         setInput({
-            ...input,
-            [e.target.name]: e.target.value,
+          ...input,
+          [e.target.name]: e.target.value,
         });
         setErrors(validate({
-            ...input,
-            [e.target.name]: e.target.value,
+          ...input,
+          [e.target.name]: e.target.value,
         }));
-    };
-
-    const validate = (input) => {
+      };
+      
+      
+      const validate = (input) => {
         let errors = {};
         if (!input.name) {
-            errors.name = "El campo nombre es requerido";
+          errors.name = "El campo nombre es requerido";
         }
         if (!input.summary) {
-            errors.summary = "El campo resumen es requerido";
+          errors.summary = "El campo resumen es requerido"; // Cambia input.name por input.summary
         }
         if (input.healthscore > 100 || input.healthscore < 0) {
-            errors.healthscore = "El health score debe ser entre 0 y 100";
+          errors.healthscore = "El health score debe ser entre 0 y 100";
         }
-
+      
         return errors;
-    };
+      };
+      
 
     const handleCheckbox = (e) => {
         if (e.target.checked) {
@@ -139,6 +146,7 @@ const CreateRecipe = () => {
             .catch((error) => {
                 alert("Error al crear la receta: " + error.message);
             });
+
     };
 
 

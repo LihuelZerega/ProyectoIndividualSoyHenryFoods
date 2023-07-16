@@ -1,37 +1,77 @@
 .paginado {
-    display: flex;
-    justify-content: center;
-    /* padding-top: 20px; */
-    padding-bottom: 30px;
-  }
-  
-  .numberpage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    margin: 0 5px;
-    border: none;
-    background-color: #fff;
-    border-radius: 50%;
-    color: #333;
-    font-family: Poppins;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .numberpage:hover {
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .numberpage:focus {
-    outline: none;
-  }
-  
-  .numberpage:active {
-    transform: scale(0.95);
-  }
-  
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.numberpage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  border: none;
+  background-color: #fff;
+  border-radius: 50%;
+  color: #333;
+  font-family: Poppins;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.numberpage.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.numberpage:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.numberpage:focus {
+  outline: none;
+}
+
+.numberpage:active {
+  transform: scale(0.95);
+}
+
+.prevNextButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 40px;
+  margin: 0 5px;
+  border: none;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #333;
+  font-family: Poppins;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.prevNextButton:disabled {
+  background-color: #e9e9e9;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.prevNextButton:hover:not([disabled]) {
+  background-color: #333;
+  color: #fff;
+}
+
+.prevNextButton:focus {
+  outline: none;
+}
+
+.prevNextButton:active {
+  transform: scale(0.95);
+}
