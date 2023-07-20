@@ -7,6 +7,7 @@ import {
   GET_DIETS,
   GET_DETAILS_BY_ID,
   LIMPIAR_ESTADO_DETAIL,
+  POST_RECIPE, // Agregamos la importación de la nueva acción
 } from "./actions";
 
 const initialState = {
@@ -91,25 +92,31 @@ function rootReducer(state = initialState, action) {
         ...state,
         recipes: sortedElementsHS,
       };
+
     case GET_RECIPE_BY_QUERY:
       return {
         ...state,
         recipes: action.payload,
       };
+
     case GET_DIETS:
       return {
         ...state,
         diets: action.payload,
       };
-    case "POST_RECIPE":
+
+    case POST_RECIPE:
       return {
         ...state,
+        recipes: [...state.recipes, action.payload],
       };
+
     case GET_DETAILS_BY_ID:
       return {
         ...state,
         cardDetails: action.payload,
       };
+
     case LIMPIAR_ESTADO_DETAIL:
       return {
         ...state,

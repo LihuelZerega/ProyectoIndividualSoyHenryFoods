@@ -12,7 +12,7 @@ import Paginado from "../../Components/Paginado/Paginado";
 import Card from "../../Components/RecipeCard/Card";
 import SearchBar from "../../Components/SearchBar/SearchBar";
 import Loader from "../../Components/Loader/Loader";
-import "./Home.css";
+import "./HomePage.css";
 import BackArrowIcon from "../../Images/flecha-pequena-izquierda.png";
 import RefreshIcon from "../../Images/actualizar.png";
 
@@ -22,7 +22,7 @@ function Home() {
   const diets = useSelector((state) => state.diets);
   const [orden, setOrden] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [recipesPerPage, setRecipesPerPage] = useState(9);
+  const [recipesPerPage, setRecipesPerPage] = useState(10);
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = allRecipes.slice(
@@ -63,6 +63,7 @@ function Home() {
   return (
     <div className="background_home">
       <div className="NavBar">
+
         <div className="FunctionButtons">
           <Link to="/">
             <button className="BackArrowButton">
@@ -84,6 +85,8 @@ function Home() {
           </button>
         </div>
 
+
+        {/* FILTROS Y ORDENAMIENTOS */}
         <div className="Filter">
           <select
             className="OptionFilters"
@@ -125,6 +128,7 @@ function Home() {
         </div>
       </div>
 
+      {/* CARDS */}
       {allRecipes.length > 0 ? (
         <div className="cards">
           {currentRecipes?.map((recipe) => (

@@ -1,18 +1,13 @@
-.FormPageContainer {
-  background-color: #f7f7f7;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.recipecontainer{
+  background-color: #E8E8E8;
 }
 
 .Back {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  background: #1e1e1e;
+  justify-content: space-between;
+  background: #1E1E1E;
   padding: 10px;
-  margin-bottom: 20px;
-  width: 100%;
 }
 
 .BackArrowButton {
@@ -30,68 +25,116 @@
   transition: transform 0.3s;
 }
 
-.Form {
+
+.form-container {
   display: flex;
   flex-direction: column;
-  background-color: white;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 800px;
-  padding: 40px;
-  box-shadow: #1e1e1e49 0px 0px 5px;
-}
-
-.TitleContainer {
-  display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 30px;
+  background-color: #E8E8E8;
 }
 
-.Title {
-  font-size: 24px;
-  font-family: Poppins;
+.titleform {
+  font-size: 32px;
+  font-family: Poppins, sans-serif;
   color: #333;
+  margin-bottom: 40px;
 }
 
-.InputsContainer {
+.botondevolver {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.InputsTextContainer {
-  display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
   margin-bottom: 20px;
 }
 
-.InputName,
-.InputHealthScore,
-.InputSummary {
+.botondevolver button {
+  background: transparent;
+  border: none;
+  color: #1e1e1e;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.botondevolver button:hover {
+  text-decoration: underline;
+}
+
+.inputsycheck {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.inputscontainer {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   margin-bottom: 10px;
 }
 
-.InputNameTitle,
-.InputHealthScoreTitle,
-.InputSummaryTitle,
-.stepbystepTitle {
+.inputstexto {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.inputstexto label {
   font-weight: bold;
-  color: #333;
+  color: #1e1e1e;
+  font-family: Poppins, sans-serif;
+  margin-bottom: 8px;
 }
 
 .inputdata {
   padding: 8px;
+  width: 300px;
   border-radius: 8px;
   border: 1px solid #ccc;
   outline: none;
   transition: border-color 0.3s;
+  font-family: Poppins, sans-serif;
 }
 
-.error-input {
-  border-color: red;
+.imagecontainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputimagecontainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputimage {
+  font-family: Poppins, sans-serif;
+  margin-bottom: 10px;
+
+}
+
+.preview-image {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.preview-image img {
+  padding: 8px;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+.inputdata:focus {
+  border-color: #888;
 }
 
 .error {
@@ -100,8 +143,50 @@
   font-size: 12px;
 }
 
+.containercheck {
+  flex: 0 1 45%;
+}
+
+.orgcontcheck {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 8px;
+  margin-top: 10px;
+}
+
+legend {
+  font-weight: bold;
+  color: #1e1e1e;
+  font-family: Poppins, sans-serif;
+}
+
+.organizadorcheck {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #1e1e1e;
+}
+
+.organizadorcheck p {
+  font-family: Poppins, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.organizadorcheck input {
+  margin-left: 8px;
+}
+
+.stepyrender {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: Poppins, sans-serif;
+
+}
+
 .stepbystep {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .stepbystep textarea {
@@ -111,44 +196,11 @@
   border: 1px solid #ccc;
   outline: none;
   transition: border-color 0.3s;
+  font-family: Poppins, sans-serif;
 }
 
 .stepbystep textarea:focus {
   border-color: #888;
-}
-
-.renderstepbystep ol {
-  padding-left: 20px;
-}
-
-.renderstepbystep li {
-  margin-bottom: 8px;
-}
-
-.orgcontcheck {
-  margin-bottom: 10px;
-}
-
-.organizadorcheck {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #555;
-}
-
-.orgcontcheckTitle {
-  font-family: Poppins;
-  font-weight: bold;
-}
-
-.organizadorcheck p {
-  font-family: Poppins;
-  font-weight: 500;
-  font-size: 16px;
-}
-
-.stepbystepTitle {
-  margin-top: 8px;
 }
 
 .stepbystep-buttons {
@@ -178,33 +230,21 @@
   background-color: #333;
 }
 
-.checklist {
-  display: flex;
-  flex-direction: column;
+.renderstepbystep ol {
+  padding-left: 20px;
 }
 
-.checklist-item {
-  display: flex;
-  align-items: center;
+.renderstepbystep li {
   margin-bottom: 8px;
-  color: #555;
 }
 
-.checklist-item input {
-  margin-right: 8px;
-}
-
-.checklist-item-label {
-  font-weight: bold;
-}
-
-.ButtonsContainer {
+.mandareceta {
   display: flex;
-  align-items: center;
   justify-content: center;
+  margin-top: 20px;
 }
 
-.buttons {
+.mandareceta button {
   padding: 10px 20px;
   border-radius: 8px;
   background-color: #1e1e1e;
@@ -215,93 +255,89 @@
   transition: background-color 0.3s;
 }
 
-.buttons:hover {
+.mandareceta button:hover {
   background-color: #333;
 }
 
-.RightInputs {
+.divstepsbuttons {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-@media screen and (max-width: 768px) {
-  .InputsContainer {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .InputsTextContainer {
-    width: 100%;
-  }
-
-  .InputName,
-  .InputHealthScore,
-  .InputSummary {
-    width: 100%;
-  }
-
-  .RightInputs {
-    align-items: flex-start;
-  }
-}
-
-.ImagePreview {
-  max-width: 100%;
-  max-height: 200px;
-  border-radius: 10px;
+.stepsbutton {
+  padding: 10px 15px;
   margin-top: 10px;
-}
-
-/* IMAGE INPUT */
-
-.custum-file-upload {
-  height: 200px;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: space-between;
-  gap: 20px;
+  border-radius: 8px;
+  background-color: #1e1e1e;
+  color: white;
+  font-weight: bold;
+  border: none;
   cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed #cacaca;
-  background-color: rgba(255, 255, 255, 1);
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0px 48px 35px -48px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
 }
 
-.custum-file-upload .icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.stepsbutton:hover {
+  background-color: #333;
 }
 
-.custum-file-upload .icon svg {
-  height: 80px;
-  fill: rgba(75, 85, 99, 1);
+/* Estilos para dispositivos móviles */
+@media only screen and (max-width: 767px) {
+  .inputsycheck {
+    flex-direction: column;
+  }
+
+  .inputstexto {
+    width: 100%;
+  }
+
+  .containercheck {
+    width: 100%;
+  }
+
+  .orgcontcheck {
+    margin-top: 20px;
+  }
+
+  .stepbystep-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+  }
+
+  .stepbystep-buttons button {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }
 
-.custum-file-upload .text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.custum-file-upload .text span {
-  font-weight: 400;
-  color: rgba(75, 85, 99, 1);
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-.custum-file-upload input {
-  display: none;
+.form-container {
+  animation: fadeIn 0.8s;
 }
 
-.ImagePreview {
-  max-width: 100%;
-  max-height: 200px;
-  border-radius: 10px;
-  margin-top: 10px;
+.inputsycheck,
+.mandareceta,
+.stepbystep {
+  animation: slideIn 0.8s;
 }

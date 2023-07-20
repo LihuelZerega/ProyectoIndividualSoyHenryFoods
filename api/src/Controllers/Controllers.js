@@ -1,11 +1,11 @@
 const { Recipe, Diet } = require('../db')
 const axios = require("axios")
-
+const { API_KEY } = process.env
 
 const getApiRecipes = async () => {
     try {
 
-        const apiData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=5f61c52abac94663b1272cb0b71db95e&number=100&addRecipeInformation=true`) 
+        const apiData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`) 
 
         const apiRecipes = await apiData.data.results.map(e => {
             return {
@@ -48,8 +48,7 @@ const getDBrecipes = async () => {
                 steps: e.steps
             }
         })
-        //const dbRecipes = await Recipe.findAll() //traemos todas la recetas de la base de datos
-        //return dbRecipes
+
     } catch (error) {
         return error
     }
@@ -58,7 +57,7 @@ const getDBrecipes = async () => {
 const getALLRecipes = async () => {
     const apiInfo = await getApiRecipes()
     const dbInfo = await getDBrecipes()
-    const allRecipes = [...dbInfo, ...apiInfo]  //Concatenamos las recetas de la api con las de la base de datos
+    const allRecipes = [...dbInfo, ...apiInfo]  //
     return allRecipes
 }
 

@@ -1,294 +1,327 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postRecipe, getDiets } from "../../Redux/actions.js";
+import { postRecipe, getDiets } from "../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import BackArrowIcon from "../../Images/flecha-pequena-izquierda.png";
+import BackArrowICon from "../../Images/flecha-pequena-izquierda.png";
 import "./FormPage.css";
 
-
 const CreateRecipe = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const diets = useSelector((state) => state.diets);
-    const [selectedImage, setSelectedImage] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const diets = useSelector((state) => state.diets);
+  const fileInputRef = useRef(null);
 
-    useEffect(() => {
-        dispatch(getDiets());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getDiets());
+  }, [dispatch]);
 
-    const [infoSteps, setInfoSteps] = useState("");
-    const [errors, setErrors] = useState("");
-    const [input, setInput] = useState({
-        name: "",
-        summary: "",
-        healthscore: "",
-        diets: [],
-        steps: [],
-        image: "",
+  const [infoSteps, setInfoSteps] = useState("");
+  const [errors, setErrors] = useState({});
+  const [input, setInput] = useState({
+    name: "",
+    summary: "",
+    healthscore: "",
+    diets: [],
+    steps: [],
+    image: "",
+  });
+
+  useEffect(() => {
+    setErrors(validateForm(input));
+  }, [input]);
+
+  function handleInputChange(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function validateForm(input) {
+    let errors = {};
+    if (!input.name) {
+      errors.name = "El campo nombre es requerido";
+    }
+    if (!input.summary) {
+      errors.summary = "El campo resumen es requerido";
+    }
+    if (input.healthscore !== "" && (input.healthscore > 100 || input.healthscore < 0)) {
+      errors.healthscore = "El health score debe ser entre 0 y 100";
+    }
+    return errors;
+  }
+
+  function handleCheckbox(e) {
+    const { value, checked } = e.target;
+    setInput((prevInput) => {
+      if (checked) {
+        return {
+          ...prevInput,
+          diets: [...prevInput.diets, value],
+        };
+      } else {
+        return {
+          ...prevInput,
+          diets: prevInput.diets.filter((diet) => diet !== value),
+        };
+      }
+    });
+  }
+
+  function handleAddSteps(e) {
+    e.preventDefault();
+    setInput({
+      ...input,
+      steps: [...input.steps, infoSteps],
     });
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setSelectedImage(URL.createObjectURL(file));
-        setInput({
-            ...input,
-            image: file,
-        });
-    };
+    setInfoSteps("");
+  }
 
+  function handleDeleteLast(e) {
+    e.preventDefault();
+    setInput((prevInput) => {
+      const newSteps = [...prevInput.steps];
+      newSteps.pop();
+      return {
+        ...prevInput,
+        steps: newSteps,
+      };
+    });
+    setInfoSteps("");
+  }
 
-    const handleInputChange = (e) => {
+  function handleDeleteAll(e) {
+    e.preventDefault();
+    setInput({
+      ...input,
+      steps: [],
+    });
+    setInfoSteps("");
+  }
+
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
         setInput({
           ...input,
-          [e.target.name]: e.target.value,
+          image: reader.result,
         });
-        setErrors(validate({
-          ...input,
-          [e.target.name]: e.target.value,
-        }));
       };
-      
-      
-      const validate = (input) => {
-        let errors = {};
-        if (!input.name) {
-          errors.name = "El campo nombre es requerido";
-        }
-        if (!input.summary) {
-          errors.summary = "El campo resumen es requerido"; // Cambia input.name por input.summary
-        }
-        if (input.healthscore > 100 || input.healthscore < 0) {
-          errors.healthscore = "El health score debe ser entre 0 y 100";
-        }
-      
-        return errors;
-      };
-      
+      reader.readAsDataURL(file);
+    } else {
+      setInput({
+        ...input,
+        image: "",
+      });
+    }
+  }
 
-    const handleCheckbox = (e) => {
-        if (e.target.checked) {
-            setInput({
-                ...input,
-                diets: [...input.diets, e.target.value],
-            });
-        } else {
-            setInput({
-                ...input,
-                diets: input.diets.filter((el) => el !== e.target.value),
-            });
-        }
-    };
+  function handleRemoveImage() {
+    setInput({
+      ...input,
+      image: "",
+    });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }
 
-    const handleAddSteps = (e) => {
-        e.preventDefault();
-        setInput({
-            ...input,
-            steps: [...input.steps, infoSteps],
-        });
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const formErrors = validateForm(input);
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
 
-        setInfoSteps("");
-    };
+    if (input.image === "") {
+      setInput({
+        ...input,
+        image: "https://www.clarin.com/img/2022/05/27/0HXb0UR0v_2000x1500__1.jpg",
+      });
+    }
 
-    const handleDeleteLast = (e) => {
-        e.preventDefault();
-        const newSteps = input.steps.slice(0, -1);
-        setInput({
-            ...input,
-            steps: newSteps,
-        });
-        setInfoSteps("");
-    };
+    try {
+      await dispatch(postRecipe(input));
+      alert("La receta fue creada exitosamente");
+      setInput({
+        name: "",
+        summary: "",
+        image: "",
+        healthscore: "",
+        steps: [],
+        diets: [],
+      });
+      navigate("/HomePage");
+    } catch (error) {
+      alert("Hubo un error al crear la receta. Por favor, intenta nuevamente.");
+      console.error(error);
+    }
+  }
 
-    const handleDeleteAll = (e) => {
-        e.preventDefault();
-        setInput({
-            ...input,
-            steps: [],
-        });
-        setInfoSteps("");
-    };
+  return (
+    <div className="recipecontainer">
+      <div className="Back">
+        <Link to="/HomePage">
+          <button className="BackArrowButton">
+            <img className="BackArrowIcon" src={BackArrowICon} alt="" />
+          </button>
+        </Link>
+      </div>
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!input.name) {
-            return alert("Por favor ingrese un nombre para su receta");
-        }
+      <div className="form-container">
+        <h1 className="titleform">Create your own recipe</h1>
 
-        if (input.summary === "") {
-            return alert("Por favor ingrese un resumen de su receta");
-        }
-        if (input.image === "") {
-            setInput({
-                ...input,
-                image:
-                    "https://cdn.pixabay.com/photo/2018/03/05/06/26/board-3200054_960_720.jpg",
-            });
-        }
-        if (input.healthscore > 100 || input.healthscore < 0) {
-            return alert(
-                "Por favor ingrese un valor entre 0 y 100 para calificar su health score"
-            );
-        }
+        <form onSubmit={handleSubmit}>
+          <section className="inputsycheck">
+            <div className="inputstexto">
+              <div className="inputscontainer">
+                <label>Name: </label>
+                <input
+                  className="inputdata"
+                  placeholder="Enter the name of the recipe..."
+                  type="text"
+                  value={input.name}
+                  name="name"
+                  autoComplete="off"
+                  onChange={handleInputChange}
+                />
+                {errors.name && <p className="error">{errors.name}</p>}
+              </div>
 
-        dispatch(postRecipe(input))
-            .then(() => {
-                alert("La receta fue creada exitosamente");
-                setInput({
-                    name: "",
-                    summary: "",
-                    image: "",
-                    healthscore: "",
-                    steps: [],
-                    diets: [],
-                });
-                navigate("/HomePage");
-            })
-            .catch((error) => {
-                alert("Error al crear la receta: " + error.message);
-            });
+              <div className="inputscontainer">
+                <div className="imagecontainer">
+                  <div className="inputimagecontainer">
+                    <label>Image: </label>
+                    <input
+                      ref={fileInputRef}
+                      className="inputimage"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                    />
+                  </div>
+                  {input.image && (
+                    <div className="preview-image">
+                      <img src={input.image} alt="Preview" />
+                      <button
+                        className="stepsbutton"
+                        type="button"
+                        onClick={handleRemoveImage}
+                      >
+                        Remove Image
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
 
-    };
+              <div className="inputscontainer">
+                <label>Summary: </label>
+                <textarea
+                  className="inputdata"
+                  value={input.summary}
+                  placeholder="Enter a short summary of the recipe..."
+                  name="summary"
+                  rows="5"
+                  cols="50"
+                  onChange={handleInputChange}
+                />
+                {errors.summary && <p className="error">{errors.summary}</p>}
+              </div>
 
+              <div className="inputscontainer">
+                <label>Health Score: </label>
+                <input
+                  className="inputdata"
+                  placeholder="Enter the health score of the recipe..."
+                  type="number"
+                  value={input.healthscore}
+                  name="healthscore"
+                  onChange={handleInputChange}
+                />
+                {errors.healthscore && (
+                  <p className="error">{errors.healthscore}</p>
+                )}
+              </div>
 
-    return (
-        <div className="FormPageContainer">
-            <div className="Back">
-                <Link to="/HomePage">
-                    <button className="BackArrowButton">
-                        <img className="BackArrowIcon" src={BackArrowIcon} alt="" />
-                    </button>
-                </Link>
+              <section className="stepyrender">
+                <div className="stepbystep">
+                  <legend>Preparation steps: </legend>
+                  <textarea
+                    value={infoSteps}
+                    placeholder="Enter the steps of the recipe..."
+                    name="name"
+                    onChange={(e) => setInfoSteps(e.target.value)}
+                    rows="5"
+                    cols="45"
+                  />
+                  <div className="divstepsbuttons">
+                    <input
+                      className="stepsbutton"
+                      type="submit"
+                      name="agregar"
+                      value="Add Step"
+                      onClick={handleAddSteps}
+                    />
+                    <input
+                      className="stepsbutton"
+                      type="submit"
+                      name="borrar"
+                      value="Delete Last Step"
+                      onClick={handleDeleteLast}
+                    />
+                    <input
+                      className="stepsbutton"
+                      type="submit"
+                      name="borrartodo"
+                      value="Delete All Steps"
+                      onClick={handleDeleteAll}
+                    />
+                  </div>
+                </div>
+
+                <div className="renderstepbystep">
+                  <ol>
+                    {input.steps.map((step, index) => (
+                      <li key={index}>{step}</li>
+                    ))}
+                  </ol>
+                </div>
+              </section>
+
+              <div className="mandareceta">
+                <button type="submit">Create Recipe!</button>
+              </div>
             </div>
 
-            <div className="Form" onSubmit={(e) => handleSubmit(e)}>
-                <section className="TitleContainer">
-                    <h1 className="Title">Create your Recipe</h1>
-                </section>
-
-                <section className="InputsContainer">
-                    <div className="LeftInputs">
-                        <div className="InputName">
-                            <label className="InputNameTitle">Name: </label>
-                            <input
-                                className={`inputdata ${errors.name ? "error-input" : ""}`}
-                                type="text"
-                                value={input.name}
-                                name="name"
-                                autoComplete="off"
-                                onChange={(e) => handleInputChange(e)}
-                            />
-                            {errors.name && <p className="error">{errors.name}</p>}
-                        </div>
-
-                        <div className="InputHealthScore">
-                            <label className="InputHealthScoreTitle">Health Score: </label>
-                            <input
-                                className={`inputdata ${errors.healthscore ? "error-input" : ""}`}
-                                type="number"
-                                value={input.healthscore}
-                                name="healthscore"
-                                onChange={(e) => handleInputChange(e)}
-                            />
-                            {errors.healthscore && <p className="error">{errors.healthscore}</p>}
-                        </div>
-
-                        <div className="InputSummary">
-                            <label className="InputSummaryTitle">Resume: </label>
-                            <textarea
-                                className={`inputdata ${errors.summary ? "error-input" : ""}`}
-                                value={input.summary}
-                                name="summary"
-                                rows="5"
-                                cols="40"
-                                onChange={(e) => handleInputChange(e)}
-                            />
-                            {errors.summary && <p className="error">{errors.summary}</p>}
-                        </div>
-
-                        <label className="custum-file-upload" htmlFor="file">
-                            <div className="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24">
-                                    <g strokeWidth="0" id="SVGRepo_bgCarrier"></g>
-                                    <g strokeLinejoin="round" strokeLinecap="round" id="SVGRepo_tracerCarrier"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path
-                                            fill=""
-                                            d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z"
-                                            clipRule="evenodd"
-                                            fillRule="evenodd"
-                                        ></path>
-                                    </g>
-                                </svg>
-                            </div>
-                            <div className="text">
-                                <span>Click to upload image</span>
-                            </div>
-                            <input type="file" id="file" onChange={handleImageChange} />
-                            {selectedImage && (
-                                <img className="ImagePreview" src={selectedImage} alt="Selected" />
-                            )}
-                        </label>
-
-                        <div className="Steps">
-                            <div className="stepbystep">
-                                <legend className="stepbystepTitle">Preparation steps: </legend>
-                                <textarea
-                                    value={infoSteps}
-                                    name="name"
-                                    onChange={(e) => setInfoSteps(e.target.value)}
-                                    row="10"
-                                    col="60"
-                                />
-                                <div className="stepbystep-buttons">
-                                    <button className="buttons" type="button" onClick={(e) => handleAddSteps(e)}>
-                                        Add Step
-                                    </button>
-                                    <button className="buttons" type="button" onClick={(e) => handleDeleteLast(e)}>
-                                        Delete Last
-                                    </button>
-                                    <button className="buttons" type="button" onClick={(e) => handleDeleteAll(e)}>
-                                        Delete All
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="renderstepbystep">
-                                <ol>
-                                    {input.steps.map((step, index) => (
-                                        <li key={index}>{step}</li>
-                                    ))}
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="RightInputs">
-                        <div className="InputsChecksContainer">
-                            <fieldset className="orgcontcheck">
-                                <legend className="orgcontcheckTitle">Choose at least one or more types of diets</legend>
-                                {diets.map((diet, index) => (
-                                    <div className="organizadorcheck" key={index}>
-                                        <p>{diet.name}</p>
-                                        <input
-                                            type="checkbox"
-                                            name={diet.name}
-                                            value={diet.name}
-                                            onChange={(e) => handleCheckbox(e)}
-                                        />
-                                    </div>
-                                ))}
-                            </fieldset>
-                        </div>
-
-                        <section className="ButtonsContainer">
-                            <button className="buttons" type="submit">Create Recipe!</button>
-                        </section>
-
-                    </div>
-                </section>
+            <div className="containercheck">
+              <fieldset className="orgcontcheck">
+                <legend>Choose at least one or more types of diets</legend>
+                {diets.map((diet) => (
+                  <div className="organizadorcheck" key={diet.id}>
+                    <p>{diet.name}</p>
+                    <input
+                      type="checkbox"
+                      name={diet.name}
+                      value={diet.name}
+                      onChange={handleCheckbox}
+                      checked={input.diets.includes(diet.name)}
+                    />
+                  </div>
+                ))}
+              </fieldset>
             </div>
-        </div>
-    );
+          </section>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default CreateRecipe;

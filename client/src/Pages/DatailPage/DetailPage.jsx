@@ -59,7 +59,7 @@ function Detail() {
                             </div>
 
                             <div className="DetailCardDietsContent">
-                                <h2 className="DietTitle">Tipo de dieta:</h2>
+                                <h2 className="DietTitle">Diet type:</h2>
                                 <p className="DietParagraph">
                                 <img className="Icon" src={DietIcon} alt="" />    
                                 {card[0].diets.join(", ")}</p>
@@ -70,12 +70,12 @@ function Detail() {
 
                     <div className="">
                         <div className="DetailCardSummary">
-                            <h4>Resumen:</h4>
+                            <h4>Summary:</h4>
                             <p>{card[0].summary}</p>
                         </div>
 
                         <div className="DetailCardSteps">
-                            <h4 className="">Paso a paso:</h4>
+                            <h4 className="">Step by Step:</h4>
                             <ol>
                                 {Array.isArray(card[0].steps) ? card[0].steps.map(e => {
                                     return (

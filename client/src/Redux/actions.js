@@ -1,5 +1,6 @@
 import axios from "axios";
 
+export const POST_RECIPE = "POST_RECIPE";
 export const GET_ALL_RECIPES = "GET_ALL_RECIPES";
 export const GET_DIETS = "GET_DIETS";
 export const FILTER_BY_DIETS = "FILTER_BY_DIETS";
@@ -10,7 +11,6 @@ export const GET_DETAILS_BY_ID = "GET_DETAILS_BY_ID";
 export const LIMPIAR_ESTADO_DETAIL = "LIMPIAR_ESTADO_DETAIL";
 
 export function getALLRecipes() {
-  //esta es la accion que le manda al reducer para traer toda la info de las recetas
   return async function (dispatch) {
     const json = await axios("http://localhost:3001/recipes");
     const recipes = json.data;
@@ -36,7 +36,6 @@ export function orderByHS(payload) {
 }
 
 export function getRecipeByQuery(name) {
-  //esta es la accion que le manda al reducer para buscar el name por query
   return async function (dispatch) {
     try {
       const json = await axios("http://localhost:3001/recipes?name=" + name);
@@ -71,6 +70,10 @@ export function filterByTypeDiets(payload) {
 export function postRecipe(payload) {
   return async function (dispatch) {
     const result = await axios.post("http://localhost:3001/recipes", payload);
+    dispatch({
+      type: POST_RECIPE,
+      payload: result.data,
+    });
     return result;
   };
 }
