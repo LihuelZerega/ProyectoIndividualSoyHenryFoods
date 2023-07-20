@@ -2,8 +2,6 @@ const { Router } = require("express");
 const { getALLRecipes } = require("../../Controllers/Controllers");
 const router = Router();
 
-
-// http://localhost:3001/recipes?name=Easy Homemade Rice and Beans
 router.get("/", async (req, res) => {
   const { name } = req.query;
   let recipesTotal = await getALLRecipes();
@@ -24,7 +22,7 @@ router.get("/", async (req, res) => {
     res.status(200).send(recipesTotal);
   }
 });
-//http://localhost:3001/recipes/716627
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params
   const recipesTotal = await getALLRecipes()
